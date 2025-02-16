@@ -1387,7 +1387,7 @@ void UpdatePerson()
 void DeletePerson(){
 
     char opc2;
-    int idOne;
+    int idOne, flyer;
 
     FILE *file, *fileHistory, *fileTemp;
     file = fopen("data_base.txt", "r");
@@ -1449,15 +1449,13 @@ void DeletePerson(){
                 system("cls");
                 Box(2, 2, 78, 25);
 
-                int flyer = 0;
-
                 y = 3;
                 x = 10;
                 y = y + 2;
                 gotoxy(x, y);
 
                 printf("Eliminaci\242n de datos");
-                ExistPerson();
+                flyer = ExistPerson();
 
                 if (flyer != 1){
                     // Cerrar todo en caso de que la persona no exista
@@ -1476,6 +1474,8 @@ void DeletePerson(){
 
                     if (fclose(file)!= 0){
                         printf("Problemas al cerrar el fichero\n");
+                    } else {
+                        fclose(file);
                     }
 
                     y = y + 2;
@@ -1483,6 +1483,8 @@ void DeletePerson(){
 
                     if (fclose(fileTemp)!= 0){
                         printf("Problemas al cerrar el fichero\n" );
+                    } else {
+                        fclose(fileTemp);
                     }
 
                     y = y + 2;
@@ -1491,6 +1493,8 @@ void DeletePerson(){
 
                     if (fclose(fileHistory)!= 0){
                     printf("Problemas al cerrar el fichero\n" );
+                    } else {
+                        fclose(fileHistory);
                     }
                     
                     y = y + 2;
