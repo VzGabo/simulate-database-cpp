@@ -445,7 +445,7 @@ void gotoxy(int x, int y) // Mover me en la pantalla
 }
 void Performance() // Función de portada
 {
-
+    Time();
     // ENCABEZADO
     x = 40;
     y = 0;
@@ -495,6 +495,11 @@ void Performance() // Función de portada
     y = y + 1;
     gotoxy(x, y);
     cout << "Gabriel Gonz\240lez " << endl;
+
+    y = y + 3;
+    x = 35;
+    gotoxy(x, y);
+    printf("Caracas, %2i/%2i/%4i", day, month, year)
 
     getch();
 }
@@ -1548,7 +1553,7 @@ void DeletePerson(){
                             // Guardar en el temporal el resto que no está eliminado
                             } else {
 
-                                fprintf(fileTemp, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", idOne, person.name, person.ci, person.tlf, person.age, audit->addHour, add->delMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
+                                fprintf(fileTemp, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", idOne, person.name, person.ci, person.tlf, person.age, audit->addHour, audit->delMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
                             }
 
 
