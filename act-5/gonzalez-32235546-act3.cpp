@@ -497,9 +497,9 @@ void Performance() // Función de portada
     cout << "Gabriel Gonz\240lez " << endl;
 
     y = y + 3;
-    x = 35;
+    x = 50;
     gotoxy(x, y);
-    printf("Caracas, %2i/%2i/%4i", day, month, year)
+    printf("Caracas, %2i/%2i/%4i", day, month, year);
 
     getch();
 }
@@ -1239,11 +1239,11 @@ void UpdatePerson()
 
                         if ((opc2 == 's') || (opc2 == 'S'))
                         {
-                            fflush(stdin);
                             y = y + 1;
                             gotoxy(x, y);
 
                             printf("Nombre (20 letras): ");
+                            fflush(stdin);
                             scanf("%s", &person.name);
                             strupr(person.name);
                         }
@@ -1258,10 +1258,10 @@ void UpdatePerson()
 
                         if ((opc2 == 's') || (opc2 == 'S'))
                         {
-                            fflush(stdin);
                             y = y + 1;
                             gotoxy(x, y);
                             printf("C\202dula: ");
+                            fflush(stdin);
                             scanf("%i", &person.ci);
                         }
                         
@@ -1277,9 +1277,9 @@ void UpdatePerson()
                         {
                             y = y + 1;
                             gotoxy(x, y);
-                            fflush(stdin);
-
+                            
                             printf("Tel\202fono: ");
+                            fflush(stdin);
                             scanf("%s", &person.tlf);
                         }
 
@@ -1292,11 +1292,11 @@ void UpdatePerson()
 
                         if ((opc2 == 's') || (opc2 == 'S'))
                         {
-                            fflush(stdin);
                             y = y + 1;
                             gotoxy(x, y);
-
+                            
                             printf("Edad: ");
+                            fflush(stdin);
                             scanf("%i", &person.age);
                         }
                     } else {
@@ -1423,7 +1423,7 @@ void DeletePerson(){
             gotoxy(x, y);
         } else {
 
-            fileHistory = fopen("history.txt", "w");
+            fileHistory = fopen("history.txt", "a+");
 
             if (fileHistory == NULL){
                 y = y + 2;
@@ -1524,6 +1524,7 @@ void DeletePerson(){
                         fscanf(file, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec);
                         
                         printf("Id a eliminar: ");
+                        fflush(stdin);
                         scanf("%i", &idOne);
 
                         y = y + 2;
@@ -1538,12 +1539,13 @@ void DeletePerson(){
                             // Guardar en el historial al eliminado
                             if ((opc2 == 's') || (opc2 == 'S')){
                                 
-                                audit->delYear = audit->addYear;
-                                audit->delMonth = audit->addMonth;
-                                audit->delDay = audit->addDay;
-                                audit->delHour = audit->addHour;
-                                audit->delMin = audit->addMin;
-                                audit->delSec = audit->addSec;
+                                Time();
+                                audit->delYear = year;
+                                audit->delMonth = month;
+                                audit->delDay = day;
+                                audit->delHour = hour;
+                                audit->delMin = mins;
+                                audit->delSec = secs;
 
                                 fprintf(fileHistory, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", idOne, person.name, person.ci, person.tlf, person.age, audit->delHour, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec);
 
