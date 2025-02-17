@@ -1423,7 +1423,7 @@ void DeletePerson(){
             gotoxy(x, y);
         } else {
 
-            fileHistory = fopen("history.txt", "a");
+            fileHistory = fopen("history.txt", "w");
 
             if (fileHistory == NULL){
                 y = y + 2;
@@ -1516,14 +1516,7 @@ void DeletePerson(){
 
                     gotoxy(x, y);
 
-                    Time();
                     
-                    audit->delYear = year;
-                    audit->delMonth = month;
-                    audit->delDay = day;
-                    audit->delHour = hour;
-                    audit->delMin = mins;
-                    audit->delSec = secs;
 
                     fseek(file, 0, 0);
                     while (feof(file) == 0){
@@ -1539,21 +1532,25 @@ void DeletePerson(){
                         if (person.idUser == idOne){
 
                             printf("\250Deseas eliminar al usuario?(s/n): ");
+                            fflush(stdin);
                             scanf("%c", &opc2);
 
                             // Guardar en el historial al eliminado
                             if ((opc2 == 's') || (opc2 == 'S')){
+                                
+                                audit->delYear = audit->addYear;
+                                audit->delMonth = audit->addMonth;
+                                audit->delDay = audit->addDay;
+                                audit->delHour = audit->addHour;
+                                audit->delMin = audit->addMin;
+                                audit->delSec = audit->addSec;
 
                                 fprintf(fileHistory, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", idOne, person.name, person.ci, person.tlf, person.age, audit->delHour, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec);
-
-
-                                y = y + 1;
-                                flyer = 1;
 
                             // Guardar en el temporal el resto que no está eliminado
                             } else {
 
-                                fprintf(fileTemp, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", idOne, person.name, person.ci, person.tlf, person.age, audit->addHour, audit->delMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
+                                fprintf(fileTemp, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", idOne, person.name, person.ci, person.tlf, person.age, audit->addHour, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
                             }
 
 
