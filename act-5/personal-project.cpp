@@ -60,33 +60,33 @@ struct Audit
     int addSec;
 
     // Fecha en que se modifican los datos
-    int updYear;
-    int updDay;
-    int updMonth;
-    int updHour;
-    int updMin;
-    int updSec;
+    int updYear = 0;
+    int updDay = 0;
+    int updMonth = 0;
+    int updHour = 0;
+    int updMin = 0;
+    int updSec = 0;
 
     // Fecha en que se eliminan los datos
-    int delYear;
-    int delMonth;
-    int delDay;
-    int delHour;
-    int delMin;
-    int delSec;
+    int delYear = 0;
+    int delMonth = 0;
+    int delDay = 0;
+    int delHour = 0;
+    int delMin = 0;
+    int delSec = 0;
 };
 
 Audit *audit = new Audit[50]; // Capacidad máxima de auditoria
 
 struct Access
 {
-    char user[50];
-    char passwordUser[50];
+    char user[8];
+    char passwordUser[10];
     int cedulaUser;
     int levelUser;
 
-    char updUser[50]; // Usuario quien modifica los datos
-    char delUser[50]; // Usuario quien elimina los datos
+    char updUser[8]; // Usuario quien modifica los datos
+    char delUser[8]; // Usuario quien elimina los datos
 };
 
 Access *accessUser = new Access[40]; // Creando los 4 niveles de usuario
@@ -709,7 +709,7 @@ int ExistPerson()
         {
 
             // Leer la base de datos para pasarlo al temporal
-            fscanf(file, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec);
+            fscanf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec);
 
             if (person.idUser == idOne)
             {
@@ -817,9 +817,10 @@ void CreatePerson()
             audit->addHour = hour;
             audit->addMin = mins;
             audit->addSec = secs;
+
             gotoxy(x, y);
 
-            fprintf(file, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
+            fprintf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedula);
 
             y = y + 3;
             gotoxy(x, y);
@@ -870,8 +871,6 @@ void ReadPersons()
 { // Leer a los usuarios almacenados en la base de datos
 
     char opcRead;
-    // char personName[50], personTlf[11];
-    // int personId, personCi, personAge, auditYear, auditMonth, auditDay, auditHour, auditMin, auditSec;
 
     y = 5;
     x = 10;
@@ -902,7 +901,7 @@ void ReadPersons()
             while (feof(file) == 0)
             {
 
-                fscanf(file, "%5i %20s %10i %11s %2d %4d %2d %2i %2i %2i %2i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec);
+                fscanf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", &person.idUser, &person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec, &audit->updYear, &audit->updMonth, &audit->updDay, &audit->updHour, &audit->updMin, &audit->updSec, &audit->delYear, &audit->delMonth, &audit->delDay, &audit->delHour, &audit->delMin, &audit->delSec, user, &cedula);
 
                 Box(2, 2, 78, 24);
                 gotoxy(x + 10, y);
@@ -932,6 +931,15 @@ void ReadPersons()
                 gotoxy(x, y);
 
                 printf("Fecha de registro: %d/%d/%d %i:%i:%i", audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
+                y = y + 2;
+                gotoxy(x, y);
+                printf("Fecha de modificaci\242n: %d/%d/%d %i:%i:%i", audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
+                y = y + 2;
+                gotoxy(x, y);
+                printf("Fecha de eliminaci\242n: %d/%d/%d %i:%i:%i", audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec);
+                y = y + 2;
+                gotoxy(x, y);
+                printf("Usuario que ingreso: %s. C\202dula: %i", user, cedula);
                 y = y + 2;
                 gotoxy(x, y);
                 printf("**************************************");
@@ -1030,7 +1038,7 @@ void ReadOnePerson()
             while (feof(file) == 0)
             {
 
-                fscanf(file, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec);
+                fscanf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec);
 
                 if (person.idUser == idOne)
                 {
@@ -1212,7 +1220,7 @@ void UpdatePerson()
                 {
 
                     // Leer el archivo 1 para pasarlo al archivo temporal
-                    fscanf(file, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec);
+                    fscanf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec);
 
                     Box(2, 2, 78, 25);
                     y = 3;
@@ -1302,7 +1310,7 @@ void UpdatePerson()
                     } else {
 
                         // Colocar los otros datos no modificados en el nuevo archivo
-                        fprintf(file2, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
+                        fprintf(file2, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
                     }
 
                     flyer = 1;
@@ -1521,7 +1529,7 @@ void DeletePerson(){
                     fseek(file, 0, 0);
                     while (feof(file) == 0){
 
-                        fscanf(file, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec);
+                        fscanf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec);
                         
                         printf("Id a eliminar: ");
                         fflush(stdin);
@@ -1547,18 +1555,18 @@ void DeletePerson(){
                                 audit->delMin = mins;
                                 audit->delSec = secs;
 
-                                fprintf(fileHistory, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", idOne, person.name, person.ci, person.tlf, person.age, audit->delHour, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec);
+                                fprintf(fileHistory, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", idOne, person.name, person.ci, person.tlf, person.age, audit->delHour, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec);
 
                             // Guardar en el temporal el resto que no está eliminado
                             } else {
 
-                                fprintf(fileTemp, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", idOne, person.name, person.ci, person.tlf, person.age, audit->addHour, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
+                                fprintf(fileTemp, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", idOne, person.name, person.ci, person.tlf, person.age, audit->addHour, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
                             }
 
 
                         } else {
 
-                            fprintf(fileTemp, "%5i %20s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addHour, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
+                            fprintf(fileTemp, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addHour, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec);
                         }
                     }
 
