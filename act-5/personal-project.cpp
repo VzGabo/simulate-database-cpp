@@ -109,7 +109,8 @@ int main()
 
     if (level == 1)
     { // Nivel 1 (USUARIO)
-        while (active) {
+        while (active)
+        {
 
             system("cls");
 
@@ -144,30 +145,28 @@ int main()
 
             switch (opc)
             {
-                case 1:
+            case 1:
 
-                    CreatePerson();
-                    break;
-                case 2:
+                CreatePerson();
+                break;
+            case 2:
 
-                    ReadPersons();
-                    break; 
-                case 3:
+                ReadPersons();
+                break;
+            case 3:
 
-                    ReadOnePerson();
-                    break;
-                case 4:
+                ReadOnePerson();
+                break;
+            case 4:
 
-                    active = false;
-                    break;
+                active = false;
+                break;
 
-                default:
+            default:
 
-                    printf("Opci\242n no disponible en el programa!");
+                printf("Opci\242n no disponible en el programa!");
             }
         }
-
-
     }
     else if (level == 2)
     { // Nivel 2 del (ALUMNO)
@@ -215,24 +214,24 @@ int main()
 
                 CreatePerson();
                 break;
-                
+
             case 2:
-                
+
                 ReadPersons();
                 break;
-                
+
             case 3:
-                
+
                 ReadOnePerson();
                 break;
-                
+
             case 4:
-                
+
                 UpdatePerson();
                 break;
-                
+
             case 5:
-                
+
                 active = false;
                 break;
 
@@ -240,10 +239,10 @@ int main()
 
                 printf("Opci\242n no disponible en el programa!");
             }
-
         }
     }
-    else if (level == 3){ // Nivel 3 del usuario
+    else if (level == 3)
+    { // Nivel 3 del usuario
 
         while (active)
         {
@@ -322,10 +321,9 @@ int main()
 
                 printf("Opci\242n no disponible en el programa!");
             }
-
         }
-    } 
-    //else if (level == 4){ // Nivel 4 del usuario
+    }
+    // else if (level == 4){ // Nivel 4 del usuario
 
     // }
 
@@ -552,7 +550,8 @@ void WindowsAccess()
 
             // Entrada de la contraseña con máscara
             cont = 0;
-            while (c != 13){
+            while (c != 13)
+            {
 
                 // ingreso clave mascara
                 fflush(stdin);
@@ -813,7 +812,7 @@ void CreatePerson()
             printf("\250Deseas agregar otro usuario? (s/n): ");
             fflush(stdin); // vacia el bufer de teclado
             scanf("%c", &opcCreate);
-            
+
             // Se cierra y se vuelve a abrir para ver los cambios en el ID
             if ((opcCreate == 's') || (opcCreate == 'S'))
             {
@@ -832,9 +831,9 @@ void CreatePerson()
                     printf("Error de apertura del archivo Acceso. ");
                     y = y + 2;
                     gotoxy(x, y);
-    
+
                     system("pause");
-    
+
                     exit(1);
                 }
             }
@@ -849,7 +848,9 @@ void CreatePerson()
             if (fclose(file) != 0)
             {
                 printf("Problemas al cerrar el fichero");
-            } else {
+            }
+            else
+            {
                 fclose(file);
             }
         }
@@ -1105,7 +1106,9 @@ void ReadOnePerson()
                         y = 3;
                         x = 10;
                         Box(2, 2, 78, 25);
-                    } else {
+                    }
+                    else
+                    {
                         y = y + 1;
                         gotoxy(x, y);
                         printf("La persona que est\240s buscando, no se encuentra en la base de datos");
@@ -1290,7 +1293,7 @@ void UpdatePerson()
                             fflush(stdin);
                             scanf("%i", &person.ci);
                         }
-                        
+
                         // Modificando el teléfono
                         y = y + 2;
                         gotoxy(x, y);
@@ -1303,7 +1306,7 @@ void UpdatePerson()
                         {
                             y = y + 1;
                             gotoxy(x, y);
-                            
+
                             printf("Tel\202fono: ");
                             fflush(stdin);
                             scanf("%s", &person.tlf);
@@ -1320,15 +1323,17 @@ void UpdatePerson()
                         {
                             y = y + 1;
                             gotoxy(x, y);
-                            
+
                             printf("Edad: ");
                             fflush(stdin);
                             scanf("%i", &person.age);
                         }
-                    } else {
+                    }
+                    else
+                    {
 
                         // Colocar los otros datos no modificados en el nuevo archivo
-                        print("No se encontr\242 el usuario");
+                        printf("No se encontr\242 el usuario");
                         system("cls");
                         y = y + 2;
                     }
@@ -1418,7 +1423,8 @@ void UpdatePerson()
         }
     }
 }
-void DeletePerson(){
+void DeletePerson()
+{
 
     char opc2;
     int idOne, flyer;
@@ -1426,7 +1432,8 @@ void DeletePerson(){
     FILE *file, *fileHistory, *fileTemp;
     file = fopen("data_base.txt", "r");
 
-    if (file == NULL){
+    if (file == NULL)
+    {
         // En caso de no tener el archivo
         y = y + 2;
         gotoxy(x, y);
@@ -1436,11 +1443,14 @@ void DeletePerson(){
         printf("Verificar si cre\242 el archivo.");
         y = y + 1;
         gotoxy(x, y);
-    } else {
+    }
+    else
+    {
 
         fileTemp = fopen("temporal.txt", "w");
 
-        if (fileTemp == NULL){
+        if (fileTemp == NULL)
+        {
 
             y = y + 2;
             gotoxy(x, y);
@@ -1450,11 +1460,14 @@ void DeletePerson(){
             printf("Verificar si cre\242 el archivo.");
             y = y + 1;
             gotoxy(x, y);
-        } else {
+        }
+        else
+        {
 
             fileHistory = fopen("history.txt", "a+");
 
-            if (fileHistory == NULL){
+            if (fileHistory == NULL)
+            {
                 y = y + 2;
                 gotoxy(x, y);
 
@@ -1466,19 +1479,22 @@ void DeletePerson(){
                 y = y + 1;
 
                 gotoxy(x, y);
-                
+
                 // Cerrar los dos archivos en caso de que haya problemas con el histórico
-                if (fclose(file) != 0){
+                if (fclose(file) != 0)
+                {
                     printf("Problemas al cerrar el archivo");
 
-                    if (fclose(fileTemp) != 0){
+                    if (fclose(fileTemp) != 0)
+                    {
 
                         printf("Problemas al cerrar el archivo");
                         exit(1);
                     }
                 }
-
-            } else {
+            }
+            else
+            {
 
                 system("cls");
                 Box(2, 2, 78, 25);
@@ -1491,11 +1507,12 @@ void DeletePerson(){
                 printf("Eliminaci\242n de datos");
                 flyer = ExistPerson();
 
-                if (flyer != 1){
+                if (flyer != 1)
+                {
                     // Cerrar todo en caso de que la persona no exista
                     y = y + 2;
                     gotoxy(x, y);
-                    
+
                     printf("No existe la persona");
 
                     y = y + 2;
@@ -1503,39 +1520,48 @@ void DeletePerson(){
 
                     system("pause");
 
-                    gotoxy(x,y);
+                    gotoxy(x, y);
                     system("pause");
 
-                    if (fclose(file)!= 0){
+                    if (fclose(file) != 0)
+                    {
                         printf("Problemas al cerrar el fichero\n");
-                    } else {
+                    }
+                    else
+                    {
                         fclose(file);
                     }
 
                     y = y + 2;
                     gotoxy(x, y);
 
-                    if (fclose(fileTemp)!= 0){
-                        printf("Problemas al cerrar el fichero\n" );
-                    } else {
+                    if (fclose(fileTemp) != 0)
+                    {
+                        printf("Problemas al cerrar el fichero\n");
+                    }
+                    else
+                    {
                         fclose(fileTemp);
                     }
 
                     y = y + 2;
                     gotoxy(x, y);
 
-
-                    if (fclose(fileHistory)!= 0){
-                    printf("Problemas al cerrar el fichero\n" );
-                    } else {
+                    if (fclose(fileHistory) != 0)
+                    {
+                        printf("Problemas al cerrar el fichero\n");
+                    }
+                    else
+                    {
                         fclose(fileHistory);
                     }
-                    
+
                     y = y + 2;
                     gotoxy(x, y);
                     return;
-
-                } else {
+                }
+                else
+                {
 
                     system("cls");
 
@@ -1545,13 +1571,12 @@ void DeletePerson(){
 
                     gotoxy(x, y);
 
-                    
-
                     fseek(file, 0, 0);
-                    while (feof(file) == 0){
+                    while (feof(file) == 0)
+                    {
 
                         fscanf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", &person.idUser, &person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec, &audit->updYear, &audit->updMonth, &audit->updDay, &audit->updHour, &audit->updMin, &audit->updSec, &audit->delYear, &audit->delMonth, &audit->delDay, &audit->delHour, &audit->delMin, &audit->delSec, user, &cedula);
-                        
+
                         printf("Confirmaci\242n del ID: ");
                         fflush(stdin);
                         scanf("%i", &idOne);
@@ -1559,15 +1584,17 @@ void DeletePerson(){
                         y = y + 2;
                         gotoxy(x, y);
 
-                        if (person.idUser == idOne){
+                        if (person.idUser == idOne)
+                        {
 
                             printf("\250Deseas eliminar al usuario?(s/n): ");
                             fflush(stdin);
                             scanf("%c", &opc2);
 
                             // Guardar en el historial al eliminado
-                            if ((opc2 == 's') || (opc2 == 'S')){
-                                
+                            if ((opc2 == 's') || (opc2 == 'S'))
+                            {
+
                                 Time();
                                 audit->delYear = year;
                                 audit->delMonth = month;
@@ -1577,51 +1604,65 @@ void DeletePerson(){
                                 audit->delSec = secs;
 
                                 fprintf(fileHistory, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedula);
+                            }
+                            else
+                            {
 
-                            } else {
-                                
                                 fprintf(fileTemp, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedula);
                             }
-                            
-                            
-                        // Guardar en el temporal el resto que no está eliminado
-                        } else {
 
-                            fprintf(fileTemp, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedula);;
+                            // Guardar en el temporal el resto que no está eliminado
+                        }
+                        else
+                        {
+
+                            fprintf(fileTemp, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedula);
+                            ;
                         }
                     }
 
                     // Cerrar archivos luego de pasar datos
-                    if (fclose(file) != 0){
+                    if (fclose(file) != 0)
+                    {
 
-                            printf("Problemas al cerrar la base de datos\n");
-                    } else {
+                        printf("Problemas al cerrar la base de datos\n");
+                    }
+                    else
+                    {
                         fclose(file);
                     }
 
-                    if (fclose(fileTemp)!= 0){
+                    if (fclose(fileTemp) != 0)
+                    {
 
                         printf("Problemas al cerrar el temporal\n");
-                    } else {
+                    }
+                    else
+                    {
                         fclose(fileTemp);
                     }
 
-                    if (fclose(fileHistory)!= 0){
+                    if (fclose(fileHistory) != 0)
+                    {
                         printf("Problemas al cerrar el Hist\242rico\n");
                     }
-                    else {
+                    else
+                    {
                         fclose(fileHistory);
                     }
 
-                    if (flyer == 1) {
+                    if (flyer == 1)
+                    {
 
-                        if (remove("data_base.txt") == 0){
+                        if (remove("data_base.txt") == 0)
+                        {
 
                             y = y + 2;
                             gotoxy(x, y);
                             printf("El archivo fue eliminado exitosamente");
-
-                        } else {
+                        }
+                        else
+                        {
 
                             y = y + 2;
                             gotoxy(x, y);
@@ -1629,25 +1670,25 @@ void DeletePerson(){
                             printf("No se pudo eliminar el archivo");
                         }
 
-                        if (rename("temporal.txt", "data_base.txt") == 0) {
+                        if (rename("temporal.txt", "data_base.txt") == 0)
+                        {
 
                             y = y + 2;
                             gotoxy(x, y);
                             printf("El archivo se renombr\242 exitosamente");
-
-                        } else {
+                        }
+                        else
+                        {
 
                             y = y + 2;
                             gotoxy(x, y);
                             printf("El archivo no se pudo renombrar");
                         }
                     }
-
                 }
 
-
-                y= y + 1;
-                gotoxy(x,y);
+                y = y + 1;
+                gotoxy(x, y);
 
                 system("pause");
                 return;
