@@ -44,7 +44,7 @@ void SetAudit();      // Auditoria al momento de guardar un usuario en la base d
 struct Person
 {
     int idUser;    // Id único
-    char name[50]; // Nombre del usuario
+    char name[12]; // Nombre del usuario
     char tlf[11];  // Teléfono del usuario
     int ci;        // Cédula de identidad del usuario
     int age;       // Edad
@@ -147,18 +147,18 @@ int main()
                 case 1:
 
                     CreatePerson();
-
+                    break;
                 case 2:
 
                     ReadPersons();
-
+                    break; 
                 case 3:
 
                     ReadOnePerson();
-
+                    break;
                 case 4:
 
-                    exit(1);
+                    active = false;
                     break;
 
                 default:
@@ -214,31 +214,26 @@ int main()
             case 1:
 
                 CreatePerson();
-                active = false;
                 break;
                 
             case 2:
                 
                 ReadPersons();
-                active = false;
                 break;
                 
             case 3:
                 
                 ReadOnePerson();
-                active = false;
                 break;
                 
             case 4:
                 
                 UpdatePerson();
-                active = false;
                 break;
                 
             case 5:
                 
                 active = false;
-                exit(1);
                 break;
 
             default:
@@ -296,26 +291,31 @@ int main()
             case 1:
 
                 CreatePerson();
+                break;
 
             case 2:
 
                 ReadPersons();
+                break;
 
             case 3:
 
                 ReadOnePerson();
+                break;
 
             case 4:
 
                 UpdatePerson();
+                break;
 
             case 5:
 
                 DeletePerson();
+                break;
 
             case 6:
 
-                exit(1);
+                active = false;
                 break;
 
             default:
@@ -684,7 +684,7 @@ int ExistPerson()
         y = y + 2;
         gotoxy(x, y);
 
-        printf("ID del usuario a modificar: ");
+        printf("ID del usuario a encontrar: ");
         scanf("%i", &idOne);
         fflush(stdin);
 
@@ -768,7 +768,7 @@ void CreatePerson()
 
             // Pidiendo los datos del usuario a almacenar en la base de datos
             // NOMBRE
-            printf("Ingresa el nombre (20 letras m\240ximo): ");
+            printf("Ingresa el nombre (12 letras m\240ximo): ");
             scanf("%s", person.name);
             strupr(person.name);
             y = y + 1;
@@ -1245,6 +1245,7 @@ void UpdatePerson()
                     gotoxy(x, y);
 
                     printf("Validaci\242n del id: ");
+                    fflush(stdin);
                     scanf("%i", &idOne);
 
                     // Modificando los datos del id igual al que se busca
@@ -1327,7 +1328,9 @@ void UpdatePerson()
                     } else {
 
                         // Colocar los otros datos no modificados en el nuevo archivo
-                        fprintf(file2, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedulaR);
+                        print("No se encontr\242 el usuario");
+                        system("cls");
+                        y = y + 2;
                     }
 
                     flyer = 1;
@@ -1549,7 +1552,7 @@ void DeletePerson(){
 
                         fscanf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", &person.idUser, &person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec, &audit->updYear, &audit->updMonth, &audit->updDay, &audit->updHour, &audit->updMin, &audit->updSec, &audit->delYear, &audit->delMonth, &audit->delDay, &audit->delHour, &audit->delMin, &audit->delSec, user, &cedula);
                         
-                        printf("Id a eliminar: ");
+                        printf("Confirmaci\242n del ID: ");
                         fflush(stdin);
                         scanf("%i", &idOne);
 
