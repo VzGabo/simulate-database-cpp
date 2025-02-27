@@ -144,40 +144,35 @@ int main()
 
             switch (opc)
             {
-            case 1:
+                case 1:
 
-                CreatePerson();
-                break;
+                    CreatePerson();
 
-            case 2:
+                case 2:
 
-                ReadPersons();
-                break;
+                    ReadPersons();
 
-            case 3:
+                case 3:
 
-                ReadOnePerson();
-                break;
+                    ReadOnePerson();
 
-            case 4:
+                case 4:
 
-                exit(1);
-                break;
+                    exit(1);
+                    break;
 
-            default:
+                default:
 
-                printf("Opci\242n no disponible en el programa!");
-                break;
+                    printf("Opci\242n no disponible en el programa!");
             }
         }
 
 
-        }
     }
     else if (level == 2)
     { // Nivel 2 del (ALUMNO)
 
-        while ((opcMenu != 'n') && (opcMenu != 'N'))
+        while (active)
         {
             system("cls");
 
@@ -219,42 +214,43 @@ int main()
             case 1:
 
                 CreatePerson();
+                active = false;
                 break;
-
+                
             case 2:
-
+                
                 ReadPersons();
+                active = false;
                 break;
-
+                
             case 3:
-
+                
                 ReadOnePerson();
+                active = false;
                 break;
-
+                
             case 4:
-
+                
                 UpdatePerson();
+                active = false;
                 break;
-
+                
             case 5:
-
+                
+                active = false;
                 exit(1);
                 break;
 
             default:
 
                 printf("Opci\242n no disponible en el programa!");
-                break;
             }
 
-            printf("\250Deseas volver al men\243? (s/n): ");
-            fflush(stdin);
-            scanf("%c", &opcMenu);
         }
     }
     else if (level == 3){ // Nivel 3 del usuario
 
-        while ((opcMenu != 'n') && (opcMenu != 'N'))
+        while (active)
         {
             system("cls");
 
@@ -300,27 +296,22 @@ int main()
             case 1:
 
                 CreatePerson();
-                break;
 
             case 2:
 
                 ReadPersons();
-                break;
 
             case 3:
 
                 ReadOnePerson();
-                break;
 
             case 4:
 
                 UpdatePerson();
-                break;
 
             case 5:
 
                 DeletePerson();
-                break;
 
             case 6:
 
@@ -330,12 +321,8 @@ int main()
             default:
 
                 printf("Opci\242n no disponible en el programa!");
-                break;
             }
 
-            printf("\250Deseas volver al men\243? (s/n): ");
-            fflush(stdin);
-            scanf("%c", &opcMenu);
         }
     } 
     //else if (level == 4){ // Nivel 4 del usuario
@@ -759,10 +746,6 @@ void CreatePerson()
         y = y + 2;
         gotoxy(x, y);
 
-        printf("\250Desea ingresar datos de los usuarios? (s/n): ");
-        fflush(stdin); // vacia el bufer de teclado
-        scanf("%c", &opcCreate);
-
         do
         {
             Time();
@@ -830,6 +813,31 @@ void CreatePerson()
             printf("\250Deseas agregar otro usuario? (s/n): ");
             fflush(stdin); // vacia el bufer de teclado
             scanf("%c", &opcCreate);
+            
+            // Se cierra y se vuelve a abrir para ver los cambios en el ID
+            if ((opcCreate == 's') || (opcCreate == 'S'))
+            {
+
+                if (fclose(file) != 0)
+                {
+                    printf("Problemas al cerrar el fichero");
+                }
+                else
+                {
+                    fclose(file);
+                }
+                file = fopen("data_base.txt", "a+");
+                if (file == NULL)
+                { // NULL   archivo NO  fue  abierto con �xito
+                    printf("Error de apertura del archivo Acceso. ");
+                    y = y + 2;
+                    gotoxy(x, y);
+    
+                    system("pause");
+    
+                    exit(1);
+                }
+            }
 
         } while ((opcCreate == 's') || (opcCreate == 'S'));
 
