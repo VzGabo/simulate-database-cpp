@@ -96,9 +96,8 @@ Access *accessUser = new Access[40]; // Creando los 4 niveles de usuario
 int main()
 {
     // Variables del programa
-
+    bool active = true;
     int opc;
-    char opcMenu;
     // Presentación del programa
     system("color 80");
     Performance();
@@ -110,9 +109,8 @@ int main()
 
     if (level == 1)
     { // Nivel 1 (USUARIO)
+        while (active) {
 
-        while ((opcMenu != 'n') && (opcMenu != 'N'))
-        {
             system("cls");
 
             y = 3;
@@ -171,10 +169,9 @@ int main()
                 printf("Opci\242n no disponible en el programa!");
                 break;
             }
+        }
 
-            printf("\250Deseas volver al men\243? (s/n): ");
-            fflush(stdin);
-            scanf("%c", &opcMenu);
+
         }
     }
     else if (level == 2)
@@ -761,11 +758,12 @@ void CreatePerson()
         system("cls");
         y = y + 2;
         gotoxy(x, y);
+
         printf("\250Desea ingresar datos de los usuarios? (s/n): ");
         fflush(stdin); // vacia el bufer de teclado
         scanf("%c", &opcCreate);
 
-        if ((opcCreate == 's') || (opcCreate == 'S'))
+        do
         {
             Time();
             system("cls");
@@ -828,9 +826,14 @@ void CreatePerson()
             printf("LOS DATOS FUERON ALMACENADOS EXITOSAMENTE");
             y = y + 1;
             gotoxy(x, y);
-            fflush(stdin);
-        }
-        else if ((opcCreate == 'n') || (opcCreate == 'N'))
+
+            printf("\250Deseas agregar otro usuario? (s/n): ");
+            fflush(stdin); // vacia el bufer de teclado
+            scanf("%c", &opcCreate);
+
+        } while ((opcCreate == 's') || (opcCreate == 'S'));
+
+        if ((opcCreate == 'n') || (opcCreate == 'N'))
         { // Selecciono (N o n) se cierra el archivo  personal.txt
             y = y + 1;
             gotoxy(x, y);
@@ -838,6 +841,8 @@ void CreatePerson()
             if (fclose(file) != 0)
             {
                 printf("Problemas al cerrar el fichero");
+            } else {
+                fclose(file);
             }
         }
         else
@@ -1314,7 +1319,7 @@ void UpdatePerson()
                     } else {
 
                         // Colocar los otros datos no modificados en el nuevo archivo
-                        fprintf(file2, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedula);
+                        fprintf(file2, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedulaR);
                     }
 
                     flyer = 1;
