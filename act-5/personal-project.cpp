@@ -1607,7 +1607,7 @@ void DeletePerson()
                     while (feof(file) == 0)
                     {
 
-                        fscanf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", &person.idUser, &person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec, &audit->updYear, &audit->updMonth, &audit->updDay, &audit->updHour, &audit->updMin, &audit->updSec, &audit->delYear, &audit->delMonth, &audit->delDay, &audit->delHour, &audit->delMin, &audit->delSec, userR, &cedula);
+                        fscanf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", &person.idUser, &person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec, &audit->updYear, &audit->updMonth, &audit->updDay, &audit->updHour, &audit->updMin, &audit->updSec, &audit->delYear, &audit->delMonth, &audit->delDay, &audit->delHour, &audit->delMin, &audit->delSec, user, &cedula);
 
                         printf("Confirmaci\242n del ID: ");
                         fflush(stdin);
@@ -1642,7 +1642,7 @@ void DeletePerson()
                             else
                             {
 
-                                fprintf(fileTemp, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, userR, cedula);
+                                fprintf(fileTemp, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedula);
                             }
 
                             // Guardar en el temporal el resto que no está eliminado
@@ -1650,7 +1650,7 @@ void DeletePerson()
                         else
                         {
 
-                            fprintf(fileTemp, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, userR, cedula);
+                            fprintf(fileTemp, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedula);
                             ;
                         }
                     }
