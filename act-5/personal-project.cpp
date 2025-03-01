@@ -684,8 +684,8 @@ int ExistPerson()
         gotoxy(x, y);
 
         printf("ID del usuario a encontrar: ");
-        scanf("%i", &idOne);
         fflush(stdin);
+        scanf("%i", &idOne);
 
         fseek(file, 0, 0);
         while (feof(file) == 0)
@@ -1176,7 +1176,7 @@ void UpdatePerson()
     {
         // Crear el archivo temporal
 
-        file2 = fopen("temporal.txt", "w");
+        file2 = fopen("temporal.txt", "a+");
         // En caso de no tener el archivo
         if (file2 == NULL)
         {
@@ -1241,7 +1241,7 @@ void UpdatePerson()
 
                     // Leer el archivo 1 para pasarlo al archivo temporal
                     fscanf(file, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", &person.idUser, person.name, &person.ci, person.tlf, &person.age, &audit->addYear, &audit->addMonth, &audit->addDay, &audit->addHour, &audit->addMin, &audit->addSec, &audit->updYear, &audit->updMonth, &audit->updDay, &audit->updHour, &audit->updMin, &audit->updSec, &audit->delYear, &audit->delMonth, &audit->delDay, &audit->delHour, &audit->delMin, &audit->delSec, user, &cedulaR);
-
+                    system("cls");
                     Box(2, 2, 78, 25);
                     y = 3;
                     x = 10;
@@ -1342,7 +1342,7 @@ void UpdatePerson()
                 }
 
                 // Obteniendo los datos para la modificación
-                strcpy(accessUser->updUser, accessUser->user);
+                // strcpy(accessUser->updUser, accessUser->user);
                 accessUser->cedulaUser = cedula;
                 Time();
                 audit->updYear = year;
@@ -1353,7 +1353,7 @@ void UpdatePerson()
                 audit->updSec = secs;
 
                 // Insertando los datos a temporal.txt
-                fprintf(file2, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, accessUser->updUser, cedula);
+                fprintf(file2, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedula);
             }
 
             system("cls");
@@ -1426,7 +1426,7 @@ void UpdatePerson()
 void DeletePerson()
 {
 
-    char opc2;
+    char opc2, userD;
     int idOne, flyer;
 
     FILE *file, *fileHistory, *fileTemp;
@@ -1503,7 +1503,8 @@ void DeletePerson()
                 x = 10;
                 y = y + 2;
                 gotoxy(x, y);
-
+                strcpy(accessUser->delUser, user);
+                y = y + 2;
                 printf("Eliminaci\242n de datos");
                 flyer = ExistPerson();
 
@@ -1603,7 +1604,7 @@ void DeletePerson()
                                 audit->delMin = mins;
                                 audit->delSec = secs;
 
-                                fprintf(fileHistory, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, user, cedula);
+                                fprintf(fileHistory, "%5i %12s %10i %11s %2d %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %4d %2d %2d %2i %2i %2i %8s %10i \n", person.idUser, person.name, person.ci, person.tlf, person.age, audit->addYear, audit->addMonth, audit->addDay, audit->addHour, audit->addMin, audit->addSec, audit->updYear, audit->updMonth, audit->updDay, audit->updHour, audit->updMin, audit->updSec, audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec, accessUser->delUser, cedula);
                             }
                             else
                             {
