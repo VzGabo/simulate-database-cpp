@@ -1544,7 +1544,7 @@ void UpdatePerson()
 void DeletePerson()
 {
 
-    char opc2, userD;
+    char opc2, userD[8];
     int idOne, flyer;
 
     FILE *file, *fileHistory, *fileTemp;
@@ -1689,7 +1689,7 @@ void DeletePerson()
                     y = y + 2;
 
                     gotoxy(x, y);
-
+                    strcpy(userD, user);
                     fseek(file, 0, 0);
                     while (feof(file) == 0)
                     {
@@ -1715,7 +1715,7 @@ void DeletePerson()
                             {
 
                                 Time();
-                                strcpy(accessUser->delUser, user);
+                                strcpy(accessUser->delUser, userD);
                                 accessUser->cedulaUser = cedula;
                                 audit->delYear = year;
                                 audit->delMonth = month;
@@ -1885,6 +1885,9 @@ void ReadHistory(){
                 y = y + 1;
                 gotoxy(x, y);
                 printf("Fecha de eliminaci\242n: %d/%d/%d %i:%i:%i", audit->delYear, audit->delMonth, audit->delDay, audit->delHour, audit->delMin, audit->delSec);
+                y = y + 2;
+                gotoxy(x, y);
+                printf("Usuario: %s. Cedula: %i", user, cedula);
                 y = y + 5;
                 gotoxy(x, y);
                 printf("**************************************");
